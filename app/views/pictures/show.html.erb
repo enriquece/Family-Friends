@@ -6,9 +6,16 @@
 </p>
 
 <p>
-  <strong>Url:</strong>
-  <%= @picture.url %>
+  <%= image_tag @picture.url %>
 </p>
+
+<% @picture.comments.each do |comment| %>
+<% comment %>
+<h3><%= comment.name %></h3>
+<p><%= comment.body %></p>
+<% end %>
 
 <%= link_to 'Edit', edit_picture_path(@picture) %> |
 <%= link_to 'Back', pictures_path %>
+
+<%= render 'comments/comment', comment: @picture.comments.new%>

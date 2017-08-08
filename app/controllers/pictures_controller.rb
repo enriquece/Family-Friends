@@ -10,6 +10,8 @@ class PicturesController < ApplicationController
   # GET /pictures/1
   # GET /pictures/1.json
   def show
+     
+     # @comment = Comment.new( :picture => @picture)
   end
 
   # GET /pictures/new
@@ -71,4 +73,4 @@ class PicturesController < ApplicationController
     def picture_params
       params.require(:picture).permit(:title, :url)
     end
-end
+ end
