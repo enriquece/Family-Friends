@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-    before_action :find_picture
+  before_action :find_picture, only: [:create]
 
   def index
     @comment = Comment.all
@@ -10,10 +10,10 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = @picture.create(commentParams)
+    @comment = @picture.comments.new(commentParams)
     if @comment.save
       flash[:success] = "Comment successfully added"
-      redirect_to comments_path(@comment)
+      redirect_to @picture
     else
       render 'new'
     end
@@ -26,11 +26,10 @@ class CommentsController < ApplicationController
   private
 
     def commentParams
-      params.require(:comment).permit(:comment)
+      params.require(:comment).permit(:name, :body)
     end
 
     def find_picture
-      @picture = Picture
-
+      @picture = Picture.find(params[:id])
   end
 end
